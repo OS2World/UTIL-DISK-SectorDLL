@@ -1,0 +1,96 @@
+Documentation SECTOR.DLL
+========================
+
+In the sector.dll are five functions as REXX-extension.
+The are loaded by :
+
+call RxFuncAdd 'QDrive',   'sector', 'QDrive'
+call RxFuncAdd 'QPDrive',  'sector', 'QPDrive'
+call RxFuncAdd 'ReadSect', 'sector', 'ReadSect'
+call RxFuncAdd 'WritSect', 'sector', 'WritSect'
+call RxFuncAdd 'ReadPSect','sector', 'ReadPSect'
+
+
+QDrive
+======
+
+QDrive has a driveletter as argument and returns some drive-info.
+Example :
+
+info = QDrive('c:')
+
+The string info contains 5 numbers :
+1.) number of sectors of the drive
+2.) number of cylinders of the drive
+3.) number of heads
+4.) number of sectors per track
+5.) number of bytes per sector (disks=512, CDROM=2048 !!)
+
+
+QPDisk
+======
+
+QPDisk has a number of a physical disk as argument and returns some disk-info.
+Example :
+
+info = QPDisk('1:')
+
+The string info contains 3 numbers :
+1.) number of sectors of the disk
+2.) number of cylinders of the disk
+3.) number of heads
+
+
+
+ReadSect
+========
+
+ReadSect read one sector. The first parameter is the drive-letter. The
+second parameter is the sector-number to read. The result is a 512 byte
+long string.
+Example:
+
+buffer = ReadSect('a:',7)
+
+
+
+WriteSect
+=========
+
+WritSect writes one sector. The first parameter is the drive-letter. The
+second parameter is the sector-number to read. The third parameter is a
+512 byte long string, which will be written to the specified sector.
+The result is 0 for no-error and 108 if the drive cannot be locked
+Example:
+
+rc = WritSect('a:',7, buffer)
+
+
+
+ReadPSect
+=========
+
+ReadPS reads a sector from the physical disk. You must supply the drive,
+Cylinder, head and sectornumber which the function will read. The drive
+has to be "1:" for the first partitionable drive. The next one will be "2:"
+and so on. The number of cylinder, head and sector are all based on 0.
+The very first sector of the first harddrive would be read by :
+
+buffer = ReadPSect('1:', 0, 0, 0)
+
+
+
+
+
+No warrenty at all. Be careful with WritSect (possible data-damage !)
+
+Die Software sector.sll mit den zugehörigen Quellen steht unter einer
+Creative Commons Namensnennung-Weitergabe unter gleichen Bedingungen 3.0 Deutschland Lizenz.
+
+Die Bedingungen können nachgelesen werden unter:
+
+deutsch:  http://creativecommons.org/licenses/by-sa/3.0/de/
+englisch: http://creativecommons.org/licenses/by-sa/3.0
+
+1997, 2011 Thomas Christinck, mail at teecee.org
+

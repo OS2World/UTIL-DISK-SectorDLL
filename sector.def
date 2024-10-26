@@ -1,0 +1,8 @@
+LIBRARY sector INITINSTANCE TERMINSTANCE
+
+EXPORTS
+  QDrive
+  QPDisk
+  ReadSect
+  WritSect
+  ReadPSect
